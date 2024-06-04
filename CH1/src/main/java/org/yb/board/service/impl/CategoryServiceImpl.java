@@ -31,8 +31,8 @@ public class CategoryServiceImpl implements CategoryService {
         if (categoryDTO != null) {
             categoryMapper.updateCategory(categoryDTO);
         } else {
-            log.error("update ERROR! {}", categoryDTO);
-            throw new RuntimeException("update ERROR! 물품 카테고리 변경 메서드를 확인해주세요\n" + "Params : " + categoryDTO);
+            log.error("update ERROR!");
+            throw new RuntimeException("update ERROR! 물품 카테고리 변경 메서드를 확인해주세요");
         }
     }
 

@@ -40,8 +40,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<PostDTO> getMyProducts(int accountId) {
-        List<PostDTO> postDTOList = postMapper.selectMyProducts(accountId);
-        return postDTOList;
+        return postMapper.selectMyProducts(accountId);
     }
 
     @Override

@@ -45,8 +45,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO login(String id, String password) {
         String cryptoPassword = SHA256Util.encryptSHA256(password);
-        UserDTO memberInfo = userProfileMapper.findByUserIdAndPassword(id, cryptoPassword);
-        return memberInfo;
+        return userProfileMapper.findByUserIdAndPassword(id, cryptoPassword);
     }
 
     @Override
@@ -63,8 +62,8 @@ public class UserServiceImpl implements UserService {
             memberInfo.setPassword(SHA256Util.encryptSHA256(afterPassword));
             int insertCount = userProfileMapper.updatePassword(memberInfo);
         } else {
-            log.error("updatePasswrod ERROR! {}", memberInfo);
-            throw new IllegalArgumentException("updatePassword ERROR! 비밀번호 변경 메서드를 확인해주세요\n" + "Params : " + memberInfo);
+            log.error("updatePassword ERROR!");
+            throw new IllegalArgumentException("updatePassword ERROR! 비밀번호 변경 메서드를 확인해주세요\n");
         }
     }
 
@@ -76,8 +75,8 @@ public class UserServiceImpl implements UserService {
         if (memberInfo != null) {
             userProfileMapper.deleteUserProfile(memberInfo.getUserId());
         } else {
-            log.error("deleteId ERROR! {}", memberInfo);
-            throw new RuntimeException("deleteId ERROR! id 삭제 메서드를 확인해주세요\n" + "Params : " + memberInfo);
+            log.error("deleteId ERROR!");
+            throw new RuntimeException("deleteId ERROR! id 삭제 메서드를 확인해주세요 ");
         }
     }
 

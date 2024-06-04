@@ -1,5 +1,6 @@
 package org.yb.board.aop;
 
+import org.apache.tomcat.util.http.fileupload.RequestContext;
 import org.yb.board.utils.SessionUtil;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
@@ -26,7 +27,6 @@ public class LoginCheckAspect {
         HttpSession session = (HttpSession) ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getRequest().getSession();
         String id = null;
         int idIndex = 0;
-
 
         String userType = loginCheck.type().toString();
         switch (userType) {
