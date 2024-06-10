@@ -17,10 +17,10 @@ public interface UserProfileMapper {
 
     public int register(UserDTO userDTO);
 
-    public UserDTO findByIdAndPassword(@Param("id") String id,
+    UserDTO findByIdAndPassword(@Param("id") String id,
                                        @Param("password") String password);
 
-    public UserDTO findByUserIdAndPassword(@Param("userId") String userId,
+    UserDTO findByUserIdAndPassword(@Param("userId") String userId,
                                        @Param("password") String password);
 
     int idCheck(String id);

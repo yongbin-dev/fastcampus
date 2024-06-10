@@ -1,0 +1,13 @@
+version: '3'
+services:
+    db:
+        image: mysql:latest
+        environment:
+            MYSQL_DATABASE: 'board'
+            MYSQL_USER: 'yb'
+            MYSQL_PASSWORD: '1234'
+            MYSQL_ROOT_PASSWORD: '1234'
+        ports:
+            - '3306:3306'
+        volumes:
+            - '~/yb/docker-volume/mysql:/var/lib/mysql'

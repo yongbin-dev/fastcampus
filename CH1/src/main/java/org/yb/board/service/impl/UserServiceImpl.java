@@ -14,8 +14,7 @@ import java.util.Date;
 @Log4j2
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserProfileMapper userProfileMapper;
+    private final UserProfileMapper userProfileMapper;
 
     public UserServiceImpl(UserProfileMapper userProfileMapper) {
         this.userProfileMapper = userProfileMapper;

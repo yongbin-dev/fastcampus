@@ -22,17 +22,15 @@ import org.yb.board.utils.SessionUtil;
 @RestController
 @RequestMapping("/users")
 @Log4j2
-@RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService;
+    private final UserServiceImpl userService;
     private static final ResponseEntity<LoginResponse> FAIL_RESPONSE = new ResponseEntity<LoginResponse>(HttpStatus.BAD_REQUEST);
 
     @Autowired
     public UserController(UserServiceImpl userService) {
         this.userService = userService;
     }
-
 
     @PostMapping("sign-up")
     @ResponseStatus(HttpStatus.CREATED)
@@ -50,11 +48,11 @@ public class UserController {
         String userId = loginRequest.getUserId();
         String password = loginRequest.getPassword();
         UserDTO userInfo = userService.login(userId, password);
-        String id = userInfo.getId().toString();
 
         if (userInfo == null) {
             return HttpStatus.NOT_FOUND;
         } else if (userInfo != null) {
+            String id = userInfo.getId().toString();
             LoginResponse loginResponse = LoginResponse.success(userInfo);
             if (userInfo.getStatus() == (UserDTO.Status.ADMIN))
                 SessionUtil.setLoginAdminId(session, id);
