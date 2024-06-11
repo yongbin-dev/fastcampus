@@ -1,0 +1,56 @@
+// Gradle 이 빌드되기전 실행되는 설정
+buildscript {
+    ext {
+        springBootVersion = '3.3.0'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE"
+    }
+}
+
+// 현재의 root 프로젝트와 앞으로 추가될 서브 모듈에 대한 설정
+allprojects {}
+
+// 전체 서브 모듈 에 해당되는 설정
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    sourceCompatibility = '17'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        implementation 'org.slf4j:slf4j-api:1.7.32' // SLF4J API 버전을 1.7.x로 변경
+        implementation 'ch.qos.logback:logback-classic:1.2.10' // 호환되는 logback-classic 버전
+        compileOnly 'org.projectlombok:lombok:1.18.16'
+        annotationProcessor 'org.projectlombok:lombok:1.18.16'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        testImplementation('org.springframework.boot:spring-boot-starter-test') {
+            exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+        }
+    }
+}
+
+// api 모듈에 core의 의존성을 추가하라는 의미이다.
+project(':redis') {
+    dependencies {
+        implementation project(':core')
+    }
+}
+
+//project(':module-common') {
+//    // common 모듈에만 필요한 라이브러리가 발생하면 이곳에 추가한다.
+//    dependencies {
+//        implementation 'org.springframework.boot:spring-boot-starter-security'
+//        implementation 'io.jsonwebtoken:jjwt:0.9.1'
+//    }
+//}
+
