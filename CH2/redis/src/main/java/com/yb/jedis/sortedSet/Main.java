@@ -1,4 +1,4 @@
-package com.yb.sortedSet;
+package com.yb.jedis.sortedSet;
 
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.resps.Tuple;

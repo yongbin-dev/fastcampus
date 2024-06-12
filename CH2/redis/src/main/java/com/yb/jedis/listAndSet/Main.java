@@ -1,4 +1,4 @@
-package com.yb.listAndSet;
+package com.yb.jedis.listAndSet;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;

@@ -28,14 +28,20 @@ subprojects {
     }
 
     dependencies {
-        implementation 'org.slf4j:slf4j-api:1.7.32' // SLF4J API 버전을 1.7.x로 변경
-        implementation 'ch.qos.logback:logback-classic:1.2.10' // 호환되는 logback-classic 버전
-        compileOnly 'org.projectlombok:lombok:1.18.16'
-        annotationProcessor 'org.projectlombok:lombok:1.18.16'
+
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+        implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.springframework.boot:spring-boot-starter-cache'
+        compileOnly 'org.projectlombok:lombok'
+        developmentOnly 'org.springframework.boot:spring-boot-devtools'
+        runtimeOnly 'com.mysql:mysql-connector-j'
+        annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+        annotationProcessor 'org.projectlombok:lombok'
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
-        testImplementation('org.springframework.boot:spring-boot-starter-test') {
-            exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-        }
+
+//        implementation 'org.slf4j:slf4j-api:1.7.32' // SLF4J API 버전을 1.7.x로 변경
+//        implementation 'ch.qos.logback:logback-classic:1.2.10' // 호환되는 logback-classic 버전
     }
 }
 

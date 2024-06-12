@@ -1,4 +1,4 @@
-package com.yb.bitmap;
+package com.yb.jedis.bitmap;
 
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.Pipeline;

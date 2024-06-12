@@ -1,4 +1,4 @@
-package com.yb.geospatial;
+package com.yb.jedis.geospatial;
 
 import redis.clients.jedis.GeoCoordinate;
 import redis.clients.jedis.JedisPool;

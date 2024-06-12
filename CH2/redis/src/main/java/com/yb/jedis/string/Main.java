@@ -1,4 +1,4 @@
-package com.yb.string;
+package com.yb.jedis.string;
 
 
 import redis.clients.jedis.Jedis;

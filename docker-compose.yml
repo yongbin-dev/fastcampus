@@ -1,9 +1,9 @@
-version: '3'
+version: '0.15'
 services:
     db:
         image: mysql:latest
         environment:
-            MYSQL_DATABASE: 'board'
+            MYSQL_DATABASE: 'yb'
             MYSQL_USER: 'yb'
             MYSQL_PASSWORD: '1234'
             MYSQL_ROOT_PASSWORD: '1234'

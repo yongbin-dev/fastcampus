@@ -1,4 +1,4 @@
-package com.yb.hash;
+package com.yb.jedis.hash;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
