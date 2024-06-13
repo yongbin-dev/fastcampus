@@ -14,12 +14,17 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/users/{id}")
-    public User getUser(@PathVariable Long id) {
-        return userService.getUser3(id);
+    public User getUser(@PathVariable("id") Long id) {
+        return userService.getUser(id);
     }
 
     @GetMapping("/redishash-users/{id}")
-    public RedisHashUser getUser2(@PathVariable Long id) {
+    public RedisHashUser getUser2(@PathVariable("id") Long id) {
         return userService.getUser2(id);
+    }
+
+    @GetMapping("/caching-users/{id}")
+    public User getUser3(@PathVariable("id") Long id) {
+        return userService.getUser3(id);
     }
 }

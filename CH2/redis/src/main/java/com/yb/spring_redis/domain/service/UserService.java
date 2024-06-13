@@ -30,6 +30,7 @@ public class UserService {
             return (User) cachedUser;
         }
         User user = userRepository.findById(id).orElseThrow();
+//        userRedisTemplate.opsForValue().set(key , user , Duration.ofSeconds(30));
         objectRedisTemplate.opsForValue().set(key, user, Duration.ofSeconds(30));
         return user;
     }
@@ -48,7 +49,7 @@ public class UserService {
         return cachedUser;
     }
 
-    @Cacheable(cacheNames = CACHE1, key = "'user:' + #id")
+    @Cacheable(cacheNames = CACHE1, key = "'user:' + #p0")
     public User getUser3(final Long id) {
         return userRepository.findById(id).orElseThrow();
     }

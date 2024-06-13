@@ -42,7 +42,7 @@ public class RedisConfig {
         var objectMapper = new ObjectMapper()
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
                 .registerModule(new JavaTimeModule())
-                .activateDefaultTyping(ptv, ObjectMapper.DefaultTyping.NON_FINAL)
+                .activateDefaultTyping(ptv, ObjectMapper.DefaultTyping.NON_FINAL)   //
                 .disable(SerializationFeature.WRITE_DATE_KEYS_AS_TIMESTAMPS);
 
         var template = new RedisTemplate<String, Object>();
