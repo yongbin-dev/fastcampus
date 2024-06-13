@@ -24,14 +24,14 @@ public class UserService {
     private final RedisTemplate<String, Object> objectRedisTemplate;
 
     public User getUser(final Long id) {
-        var key = "users:%d".formatted(id);
-        var cachedUser = objectRedisTemplate.opsForValue().get(key);
-        if (cachedUser != null) {
-            return (User) cachedUser;
-        }
+//        var key = "users:%d".formatted(id);
+//        var cachedUser = objectRedisTemplate.opsForValue().get(key);
+//        if (cachedUser != null) {
+//            return (User) cachedUser;
+//        }
         User user = userRepository.findById(id).orElseThrow();
 //        userRedisTemplate.opsForValue().set(key , user , Duration.ofSeconds(30));
-        objectRedisTemplate.opsForValue().set(key, user, Duration.ofSeconds(30));
+//        objectRedisTemplate.opsForValue().set(key, user, Duration.ofSeconds(30));
         return user;
     }
 
