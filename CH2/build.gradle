@@ -28,14 +28,9 @@ subprojects {
     }
 
     dependencies {
-        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-        implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-        implementation 'org.springframework.boot:spring-boot-session-data-redis'
         implementation 'org.springframework.boot:spring-boot-starter-web'
-        implementation 'org.springframework.boot:spring-boot-starter-cache'
         compileOnly 'org.projectlombok:lombok'
         developmentOnly 'org.springframework.boot:spring-boot-devtools'
-        runtimeOnly 'com.mysql:mysql-connector-j'
         annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
         annotationProcessor 'org.projectlombok:lombok'
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -45,12 +40,22 @@ subprojects {
     }
 }
 
-// api 모듈에 core의 의존성을 추가하라는 의미이다.
+// redis 모듈에 core의 의존성을 추가하라는 의미이다.
 project(':redis') {
     dependencies {
         implementation project(':core')
     }
 }
+
+
+// webflux 모듈에 core의 의존성을 추가하라는 의미이다.
+project(':webflux') {
+    dependencies {
+        implementation project(':core')
+    }
+}
+
+
 
 //project(':module-common') {
 //    // common 모듈에만 필요한 라이브러리가 발생하면 이곳에 추가한다.
