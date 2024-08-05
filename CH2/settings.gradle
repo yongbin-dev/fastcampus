@@ -8,4 +8,5 @@ rootProject.name = 'CH2'
 include 'redis'
 include 'core'
 include 'webflux'
+include 'spring-web'
 
