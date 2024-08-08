@@ -1,4 +1,4 @@
-package com.yb.webflux.config;
+package com.yb.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

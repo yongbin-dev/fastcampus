@@ -10,10 +10,10 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/r2dbc" />
             <option value="$PROJECT_DIR$/redis" />
             <option value="$PROJECT_DIR$/spring-web" />
             <option value="$PROJECT_DIR$/webflux" />
-            <option value="$PROJECT_DIR$/webflux/Spring-WEB" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

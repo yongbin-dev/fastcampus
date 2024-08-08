@@ -9,4 +9,5 @@ include 'redis'
 include 'core'
 include 'webflux'
 include 'spring-web'
+include 'r2dbc'
 
