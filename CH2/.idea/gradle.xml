@@ -9,6 +9,10 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/CH2_FINAL_PROJECT" />
+            <option value="$PROJECT_DIR$/ch2-final-project" />
+            <option value="$PROJECT_DIR$/ch2-final-project-website" />
+            <option value="$PROJECT_DIR$/ch2_final_project" />
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/r2dbc" />
             <option value="$PROJECT_DIR$/redis" />

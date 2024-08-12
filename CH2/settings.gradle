@@ -10,4 +10,8 @@ include 'core'
 include 'webflux'
 include 'spring-web'
 include 'r2dbc'
+include 'CH2_FINAL_PROJECT'
+include 'ch2_final_project'
+include 'ch2-final-project'
+include 'ch2-final-project-website'
 
