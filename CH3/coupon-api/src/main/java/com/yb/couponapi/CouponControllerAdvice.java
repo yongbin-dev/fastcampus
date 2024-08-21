@@ -1,6 +1,6 @@
-package com.example.couponapi;
+package com.yb.couponapi;
 
-import com.example.couponapi.controller.dto.CouponIssueResponseDto;
+import com.yb.couponapi.controller.dto.CouponIssueResponseDto;
 import com.yb.couponcore.exception.CouponIssueException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

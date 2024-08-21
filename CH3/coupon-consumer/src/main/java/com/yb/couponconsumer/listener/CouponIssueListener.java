@@ -1,4 +1,4 @@
-package com.example.couponconsumer.listener;
+package com.yb.couponconsumer.listener;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.EnableScheduling;

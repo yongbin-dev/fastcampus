@@ -1,4 +1,4 @@
-package com.example.couponconsumer;
+package com.yb.couponconsumer;
 
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
