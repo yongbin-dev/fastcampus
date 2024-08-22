@@ -8,6 +8,7 @@ import com.yb.couponcore.exception.ErrorCode;
 import com.yb.couponcore.model.Coupon;
 import com.yb.couponcore.repository.redis.RedisRepository;
 import com.yb.couponcore.repository.redis.dto.CouponIssueRequest;
+import com.yb.couponcore.repository.redis.dto.CouponRedisEntity;
 import lombok.RequiredArgsConstructor;
 import org.checkerframework.common.value.qual.StringVal;
 import org.springframework.stereotype.Service;
@@ -22,27 +23,18 @@ public class AsyncCouponIssueServiceV1 {
 
     private final RedisRepository redisRepository;
     private final CouponIssueRedisService couponIssueRedisService;
-    private final CouponIssueService couponIssueService;
+    private final CouponCacheService couponCacheService;
 
     private final DistributeLockExecutor distributeLockExecutor;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public void issue(long couponId , long userId){
-        Coupon coupon = couponIssueService.findCoupon(couponId);
 
-        if(!coupon.availableIssueDate()){
-            throw new CouponIssueException(ErrorCode.INVALID_COUPON_ISSUE_DATE , ErrorCode.INVALID_COUPON_ISSUE_DATE.message);
-        }
+    public void issue(long couponId , long userId){
+        CouponRedisEntity coupon = couponCacheService.getCouponCache(couponId);
+        coupon.checkIssuableCoupon();
 
         distributeLockExecutor.execute("lock_%s".formatted(couponId) , 3000 , 3000 , ()->{
-            if(!couponIssueRedisService.availableTotalIssueQuantity(coupon.getTotalQuantity(), couponId)){
-                throw new CouponIssueException(ErrorCode.INVALID_COUPON_ISSUE_QUANTITY , ErrorCode.INVALID_COUPON_ISSUE_QUANTITY.message);
-            }
-
-            if(!couponIssueRedisService.availableUserIssueQuantity(couponId, userId)){
-                throw new CouponIssueException(ErrorCode.DUPLICATED_COUPON_ISSUE , ErrorCode.DUPLICATED_COUPON_ISSUE.message);
-            }
-
+            couponIssueRedisService.checkCouponIssueQuantity(coupon , userId);
             issueRequest(couponId , userId);
         });
     }
