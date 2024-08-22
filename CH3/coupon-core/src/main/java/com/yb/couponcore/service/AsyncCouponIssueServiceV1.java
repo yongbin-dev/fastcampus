@@ -5,14 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yb.couponcore.component.DistributeLockExecutor;
 import com.yb.couponcore.exception.CouponIssueException;
 import com.yb.couponcore.exception.ErrorCode;
-import com.yb.couponcore.model.Coupon;
 import com.yb.couponcore.repository.redis.RedisRepository;
 import com.yb.couponcore.repository.redis.dto.CouponIssueRequest;
 import com.yb.couponcore.repository.redis.dto.CouponRedisEntity;
 import lombok.RequiredArgsConstructor;
-import org.checkerframework.common.value.qual.StringVal;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import static com.yb.couponcore.util.CouponRedisUtils.getIssueRequestKey;
 import static com.yb.couponcore.util.CouponRedisUtils.getIssueRequestQueueKey;

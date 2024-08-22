@@ -26,4 +26,10 @@ public class CouponIssueController {
         return new CouponIssueResponseDto(true , null);
     }
 
+    @PostMapping("/v2/issue-async")
+    public CouponIssueResponseDto asyncIssueV2(@RequestBody CouponIssueRequestDto dto){
+        couponIssueRequestService.asyncIssueRequestV2(dto);
+        return new CouponIssueResponseDto(true , null);
+    }
+
 }
