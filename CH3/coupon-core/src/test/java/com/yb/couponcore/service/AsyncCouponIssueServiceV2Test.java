@@ -22,6 +22,7 @@ import java.util.stream.IntStream;
 import static com.yb.couponcore.exception.ErrorCode.*;
 import static com.yb.couponcore.util.CouponRedisUtils.getIssueRequestKey;
 import static com.yb.couponcore.util.CouponRedisUtils.getIssueRequestQueueKey;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class AsyncCouponIssueServiceV2Test extends TestConfig {
 
@@ -44,10 +45,10 @@ class AsyncCouponIssueServiceV2Test extends TestConfig {
     @DisplayName("쿠폰 발급 - 쿠폰이 존재하지 않는다면 예외를 반환한다")
     void issue_1() {
         // given
-        long couponId = 99999999999L;
+        long couponId = 10;
         long userId = 1;
         // when & then
-        CouponIssueException exception = Assertions.assertThrows(CouponIssueException.class, () -> {
+        CouponIssueException exception = assertThrows(CouponIssueException.class, () -> {
             sut.issue(couponId, userId);
         });
         Assertions.assertEquals(exception.getErrorCode(), COUPON_NOT_EXIST);
@@ -58,20 +59,13 @@ class AsyncCouponIssueServiceV2Test extends TestConfig {
     void issue_2() {
         // given
         long userId = 1000;
-        Coupon coupon = Coupon.builder()
-                .couponType(CouponType.FIRST_COME_FIRST_SERVED)
-                .title("선착순 테스트 쿠폰")
-                .totalQuantity(10)
-                .issuedQuantity(0)
-                .dateIssueStart(LocalDateTime.now().minusDays(1))
-                .dateIssueEnd(LocalDateTime.now().plusDays(1))
-                .build();
+        Coupon coupon = Coupon.builder().couponType(CouponType.FIRST_COME_FIRST_SERVED).title("선착순 테스트 쿠폰").totalQuantity(10).issuedQuantity(0).dateIssueStart(LocalDateTime.now().minusDays(1)).dateIssueEnd(LocalDateTime.now().plusDays(1)).build();
         couponJpaRepository.save(coupon);
         IntStream.range(0, coupon.getTotalQuantity()).forEach(idx -> {
             redisTemplate.opsForSet().add(getIssueRequestKey(coupon.getId()), String.valueOf(idx));
         });
         // when & then
-        CouponIssueException exception = Assertions.assertThrows(CouponIssueException.class, () -> {
+        CouponIssueException exception = assertThrows(CouponIssueException.class, () -> {
             sut.issue(coupon.getId(), userId);
         });
         Assertions.assertEquals(exception.getErrorCode(), INVALID_COUPON_ISSUE_QUANTITY);
@@ -82,18 +76,11 @@ class AsyncCouponIssueServiceV2Test extends TestConfig {
     void issue_3() {
         // given
         long userId = 1;
-        Coupon coupon = Coupon.builder()
-                .couponType(CouponType.FIRST_COME_FIRST_SERVED)
-                .title("선착순 테스트 쿠폰")
-                .totalQuantity(10)
-                .issuedQuantity(0)
-                .dateIssueStart(LocalDateTime.now().minusDays(1))
-                .dateIssueEnd(LocalDateTime.now().plusDays(1))
-                .build();
+        Coupon coupon = Coupon.builder().couponType(CouponType.FIRST_COME_FIRST_SERVED).title("선착순 테스트 쿠폰").totalQuantity(10).issuedQuantity(0).dateIssueStart(LocalDateTime.now().minusDays(1)).dateIssueEnd(LocalDateTime.now().plusDays(1)).build();
         couponJpaRepository.save(coupon);
         redisTemplate.opsForSet().add(getIssueRequestKey(coupon.getId()), String.valueOf(userId));
         // when & then
-        CouponIssueException exception = Assertions.assertThrows(CouponIssueException.class, () -> {
+        CouponIssueException exception = assertThrows(CouponIssueException.class, () -> {
             sut.issue(coupon.getId(), userId);
         });
         Assertions.assertEquals(exception.getErrorCode(), DUPLICATED_COUPON_ISSUE);
@@ -104,18 +91,11 @@ class AsyncCouponIssueServiceV2Test extends TestConfig {
     void issue_4() {
         // given
         long userId = 1;
-        Coupon coupon = Coupon.builder()
-                .couponType(CouponType.FIRST_COME_FIRST_SERVED)
-                .title("선착순 테스트 쿠폰")
-                .totalQuantity(10)
-                .issuedQuantity(0)
-                .dateIssueStart(LocalDateTime.now().plusDays(1))
-                .dateIssueEnd(LocalDateTime.now().plusDays(2))
-                .build();
+        Coupon coupon = Coupon.builder().couponType(CouponType.FIRST_COME_FIRST_SERVED).title("선착순 테스트 쿠폰").totalQuantity(10).issuedQuantity(0).dateIssueStart(LocalDateTime.now().plusDays(1)).dateIssueEnd(LocalDateTime.now().plusDays(2)).build();
         couponJpaRepository.save(coupon);
         redisTemplate.opsForSet().add(getIssueRequestKey(coupon.getId()), String.valueOf(userId));
         // when & then
-        CouponIssueException exception = Assertions.assertThrows(CouponIssueException.class, () -> {
+        CouponIssueException exception = assertThrows(CouponIssueException.class, () -> {
             sut.issue(coupon.getId(), userId);
         });
         Assertions.assertEquals(exception.getErrorCode(), INVALID_COUPON_ISSUE_DATE);
@@ -126,14 +106,7 @@ class AsyncCouponIssueServiceV2Test extends TestConfig {
     void issue_5() {
         // given
         long userId = 1;
-        Coupon coupon = Coupon.builder()
-                .couponType(CouponType.FIRST_COME_FIRST_SERVED)
-                .title("선착순 테스트 쿠폰")
-                .totalQuantity(10)
-                .issuedQuantity(0)
-                .dateIssueStart(LocalDateTime.now().minusDays(1))
-                .dateIssueEnd(LocalDateTime.now().plusDays(2))
-                .build();
+        Coupon coupon = Coupon.builder().couponType(CouponType.FIRST_COME_FIRST_SERVED).title("선착순 테스트 쿠폰").totalQuantity(10).issuedQuantity(0).dateIssueStart(LocalDateTime.now().minusDays(1)).dateIssueEnd(LocalDateTime.now().plusDays(2)).build();
         couponJpaRepository.save(coupon);
         // when
         sut.issue(coupon.getId(), userId);
@@ -147,14 +120,7 @@ class AsyncCouponIssueServiceV2Test extends TestConfig {
     void issue_6() throws JsonProcessingException {
         // given
         long userId = 1;
-        Coupon coupon = Coupon.builder()
-                .couponType(CouponType.FIRST_COME_FIRST_SERVED)
-                .title("선착순 테스트 쿠폰")
-                .totalQuantity(10)
-                .issuedQuantity(0)
-                .dateIssueStart(LocalDateTime.now().minusDays(1))
-                .dateIssueEnd(LocalDateTime.now().plusDays(2))
-                .build();
+        Coupon coupon = Coupon.builder().couponType(CouponType.FIRST_COME_FIRST_SERVED).title("선착순 테스트 쿠폰").totalQuantity(10).issuedQuantity(0).dateIssueStart(LocalDateTime.now().minusDays(1)).dateIssueEnd(LocalDateTime.now().plusDays(2)).build();
         couponJpaRepository.save(coupon);
         CouponIssueRequest request = new CouponIssueRequest(coupon.getId(), userId);
         // when

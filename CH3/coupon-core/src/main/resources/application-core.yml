@@ -1,7 +1,7 @@
 spring:
-#  config:
-#    activate:
-#      on-profile: local
+  config:
+    activate:
+      on-profile: local
   datasource:
     hikari:
       jdbc-url: jdbc:mysql://localhost:3306/yb?useUnicode=yes&characterEncoding=UTF-8&rewriteBatchedStatements=true
