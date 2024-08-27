@@ -1,0 +1,5 @@
+rootProject.name = 'CH5'
+include 'api-server'
+include 'kafka-server'
+include 'core'
+
